@@ -15,10 +15,13 @@ window.electron.ipcRenderer.on('updateProgress', (event, progress) => {
   }
   else {
     const progressElement = document.getElementById('selecionar');
-    progressElement.innerHTML = `<div id="progress"><div id="barra"></div></div><label style="width: 100%; text-align: center;">Baixando: ${progress.toFixed(2)}%</label>`;
+    progressElement.innerHTML = `<div id="progress"><div id="barra"></div></div><label style="width: 100%; text-align: center;">${progress.phase}: ${progress.loaded}/${progress.total? progress.total : "?"} (${progress.total? ((progress.loaded / progress.total) * 100).toFixed(1): "?"}%)</label>`;
     const borda = document.getElementById('progress');
     borda.style.borderStyle = "solid"
     const barra = document.getElementById('barra');
-    barra.style.width = `${progress.toFixed(2)}%`;
+    if (progress.total) {
+      barra.style.width = `${(progress.loaded / progress.total) * 100}%`;
+    }
+    else { barra.style.width = "95%"; }
   }
 });

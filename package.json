@@ -6,15 +6,43 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
+    "build": "electron-builder",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
   "keywords": [],
   "author": "CSMP",
   "license": "ISC",
+  "build": {
+    "appId": "com.csmp.atualizador",
+    "productName": "CSMP Updater",
+    "files": [
+      "**/*",
+      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/.bin",
+      "!**/assets"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
   "dependencies": {
+    "@isomorphic-git/lightning-fs": "^4.6.0",
     "adm-zip": "^0.5.10",
-    "electron-squirrel-startup": "^1.0.0"
+    "buffer": "^6.0.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "isomorphic-git": "^1.27.2",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.2.0",
